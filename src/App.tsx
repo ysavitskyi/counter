@@ -4,6 +4,8 @@ import './App.css'
 const DIMENSION = 3
 const TIME_INTERVAL = 1000
 
+//
+
 const App: React.FC = () => {
   const [increment, setIncrement] = useState(1)
   const [result, setResult] = useState(0)
