@@ -1,10 +1,8 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 import './App.css'
 
 const DIMENSION = 3
 const TIME_INTERVAL = 1000
-
-//
 
 const App: React.FC = () => {
   const [increment, setIncrement] = useState(1)
@@ -12,6 +10,8 @@ const App: React.FC = () => {
   const [timer, setTimer] = useState<null | ReturnType<typeof setInterval>>(
     null
   )
+  const timerRef = useRef(timer)
+  timerRef.current = timer
 
   const initIncrementation = useCallback((increment: number) => {
     const timerId = setInterval(() => {
@@ -55,6 +55,12 @@ const App: React.FC = () => {
     },
     [stopIncrementation, initIncrementation]
   )
+
+  useEffect(() => {
+    return () => {
+      timerRef.current && clearInterval(timerRef.current)
+    }
+  }, [])
 
   return (
     <div className="game">
